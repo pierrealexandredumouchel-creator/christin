@@ -1,0 +1,9 @@
+jade14/venv/
+__pycache__/
+*.pyc
+jade14/anya.db
+jade14/duck_scores.json
+jade14/duck_state.json
+.env
+jade14/.env
+venv/

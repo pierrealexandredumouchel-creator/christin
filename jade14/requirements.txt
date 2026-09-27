@@ -1,0 +1,4 @@
+requests
+rich
+google-generativeai
+python-dotenv

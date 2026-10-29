@@ -16,13 +16,14 @@ def fix_config():
         except:
             # JSON cassé → on reconstruit un propre
             cfg = {
-                "server": "irc.undernet.org",
+                "server": "irc6.undernet.org",
                 "port": 6667,
                 "nick": "christine24",
                 "ident": "christine24",
+                "bindhost": "2001:470:b2af::3",
                 "realname": "Ghost Royale Bot",
                 "channels": ["#kodi", "#montreal"],
-                "channel_password": "qpaptWUb",
+                "channel_password": "",
                 "gemini_api_key": ""
             }
 

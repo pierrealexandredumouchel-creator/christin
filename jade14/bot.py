@@ -1,10 +1,10 @@
-import socket, time
+import os, socket, time
 
 SERVER = "irc6.undernet.org"
 BINDHOST = None
 PORT = 6667
 BOTNICK = "jade14"
-PASSWORD = "qpaptWUb"
+PASSWORD = os.environ.get("X_PASSWORD", "")
 CHANNEL = "#montreal"
 
 def connect():

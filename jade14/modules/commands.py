@@ -35,6 +35,14 @@ def handle_command(bot, line):
     if alias is not None:
         host = parts[0][1:].casefold()
 
+        print(
+            f"[ChristineTarget] "
+            f"user={user!r} "
+            f"host={host!r} "
+            f"msg={msg!r}",
+            flush=True,
+        )
+
         allowed = (
             user.casefold() == "alxd"
             and (

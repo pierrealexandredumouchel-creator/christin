@@ -1,26 +1,47 @@
-# Christine24
+<p align="center"><img src="christine.png" width="180" alt="Christine, petit fantôme Ghost Royale avec sa couronne et son bouclier"></p>
 
-Bot IRC de #montreal et #kodi sur Undernet : la gardienne calme et l'opératrice technique du Ghost Royale.
+<h1 align="center">Christine24</h1>
+<p align="center"><em>La gardienne calme de #montreal et l'opératrice technique du Ghost Royale.</em></p>
 
-Le code est dans [`jade14/`](jade14/) (le bot vient de jade14, d'où le nom du dossier).
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white" alt="Python 3">
+  <img src="https://img.shields.io/badge/IRC-Undernet-6f42c1" alt="IRC Undernet">
+  <img src="https://img.shields.io/badge/r%C3%A9seau-IPv6-2ea44f" alt="IPv6">
+  <img src="https://img.shields.io/badge/IA-Ollama%20local-black" alt="Ollama">
+</p>
+
+## Qui elle est
+
+Christine garde le calme sur **#montreal** et **#kodi** : quand ça chauffe, elle désamorce avec
+une blague plutôt qu'un kick. Elle aide aussi pour les questions techniques (Linux, réseau, IRC).
 
 ## Ce qu'elle fait
 
-- Discute avec GhostBrain (Ollama local) : suit la discussion du canal, répond quand on dit son nom.
-- Personnalité : [`jade14/personalities/christine24.txt`](jade14/personalities/christine24.txt)
-- Commandes `!christine`, duckhunt (`!duckhunt`, `!shoot`, `!score`), admin : voir [`jade14/commandes.txt`](jade14/commandes.txt)
-- Reconnexion patiente (30 s à 10 min) pour éviter le « throttled » d'Undernet.
+- **GhostBrain** : discute avec l'IA locale (Ollama) et suit la discussion du canal.
+- **Gardien** (`core/gardien.py`) : garde un œil sur l'ambiance du canal.
+- Chasse au canard, commandes admin, reconnexion patiente.
 
-## Fichiers importants
+## Commandes
 
-| Fichier | Rôle |
+| Commande | Effet |
+|---|---|
+| `christine …` / `!christine <texte>` | Lui parler |
+| `!duckhunt` · `!shoot` · `!score` | Chasse au canard |
+| `!hello` · `!ping` | Les classiques |
+| `!say` · `!addadmin` · `!admins` · `!resetduck` | Admin |
+
+## Structure
+
+Le code est dans [`jade14/`](jade14/) : Christine est née d'une copie de Jade, d'où le nom du dossier.
+
+| Chemin | Rôle |
 |---|---|
 | `jade14/jade14.py` | Point d'entrée, connexion IRC |
-| `jade14/config.json` | Serveur, nick, canaux, bindhost IPv6 |
-| `jade14/core/` | GhostBrain, client Ollama, personas |
-| `jade14/modules/` | Commandes, admin, duckhunt, reconnexion |
+| `jade14/config.json` | Serveur, nick, canaux |
+| `jade14/core/` | GhostBrain, gardien, client Ollama, personas |
+| `jade14/modules/` | Commandes, admin, chasse au canard, reconnexion |
 | `jade14/master_control.py` | Commandes privilégiées (doit être présent au déploiement) |
-| `fix_config.sh` | Répare `config.json` s'il est cassé |
+| `jade14/personalities/christine24.txt` | Sa personnalité |
 
 ## Lancer
 
@@ -30,8 +51,10 @@ python3 -m venv venv && venv/bin/pip install -r requirements.txt
 venv/bin/python3 jade14.py
 ```
 
-Les secrets (mot de passe X, clés API) vont dans `jade14/.env`, jamais dans le dépôt.
+## Secrets
 
-## Réseau
+Les mots de passe (X, canaux) et les clés API vont dans un fichier `.env` sur le serveur, **jamais** dans le dépôt. Les bases de données, logs et sauvegardes sont ignorés par git.
 
-IRC en IPv6 seulement : `irc6.undernet.org`, bindhost `2001:470:b2af::3`. Voir [`network-layout.md`](network-layout.md).
+---
+
+<p align="center">Fait partie de la flotte <a href="https://github.com/pierrealexandredumouchel-creator"><b>Ghost Royale</b></a> : Jade · Christine · Anya · Tanya · Millie 👻</p>

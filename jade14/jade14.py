@@ -12,6 +12,7 @@ from core.brain import ghost_brain
 
 from modules.autoreconnect import AutoReconnect
 from modules.commands import handle_command
+from core.gardien import gardien
 from modules.duckhunt import init as duckhunt_init
 from modules.events import handle_event
 
@@ -209,6 +210,13 @@ class Jade14Bot:
 
                 if " JOIN " in line:
                     self.ghostguard_join(line)
+
+                # Gardien : Christine protège Daniel et Marc (accueil et défense).
+                try:
+                    for out in gardien(line, NICK, "christine"):
+                        self.send_raw(out)
+                except Exception as e:
+                    print(f"Gardien : {e!r}")
 
                 if "PRIVMSG" in line:
                     try:

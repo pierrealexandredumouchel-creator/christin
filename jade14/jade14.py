@@ -12,6 +12,7 @@ from core.brain import ghost_brain
 
 from modules.autoreconnect import AutoReconnect
 from modules.commands import handle_command
+from modules.mairie import contexte_pour
 from core.gardien import gardien
 from modules.duckhunt import init as duckhunt_init
 from modules.events import handle_event
@@ -254,6 +255,7 @@ class Jade14Bot:
             try:
                 reply = asyncio.run(ghost_brain.ask(
                     bot_name="christine24", nick=nick, target=reply_to, message=text,
+                    knowledge=contexte_pour(text) or None,
                 ))
                 if reply:
                     self.say_long(reply_to, f"{nick}: {reply}")

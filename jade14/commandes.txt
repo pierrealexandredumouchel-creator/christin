@@ -56,3 +56,15 @@ Le bot se déconnecte proprement
 
 ✔ !resetduck
 Reset DUCKHUNT (admin only)
+🏛️ MAIRIE DE #MONTREAL (Christine mairesse autoproclamée)
+
+!reglement <mots>  → règlement municipal de Montréal (déneigement, chiens, bruit, abri tempo, airbnb, pesticides...)
+!sujets            → sujets connus de la mairie
+!arrondissements   → les 19 arrondissements
+!311               → joindre la Ville
+!mairesse          → une réplique de la mairesse
+!proclamation      → proclamation du jour (texte libre : maîtres seulement)
+!conseil <idée>    → vote de 60 s, on vote avec !pour / !contre
+!veto              → annule le vote (maîtres seulement)
+
+Base : data/reglements_mtl.json (résumés de montreal.ca, lus le 2026-11-18). Info générale, pas un avis juridique.

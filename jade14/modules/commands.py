@@ -2,6 +2,7 @@ import re
 from modules.admin import add_admin, list_admins
 from modules.permissions import is_master, is_trusted
 from modules.duckhunt import reset_duck, score, shoot, spawn_duck
+from modules import mairie
 
 
 def handle_command(bot, line):
@@ -10,6 +11,10 @@ def handle_command(bot, line):
     chan = parts[2]
     msg = " ".join(parts[3:]).replace(":", "", 1)
     hostmask = parts[0][1:]
+
+    # Mairie de #montreal : règlements municipaux, proclamations, conseil.
+    if mairie.handle(bot, user, hostmask, chan, msg):
+        return
 
     # GHOST TARGET COMMANDS V3 christine24
     aliases = (
@@ -59,7 +64,9 @@ def handle_command(bot, line):
             bot.send(
                 chan,
                 "Commandes Christine: help, status, "
-                "join, part, say, action.",
+                "join, part, say, action. Mairie : !reglement, "
+                "!sujets, !arrondissements, !311, !mairesse, "
+                "!proclamation, !conseil, !veto.",
             )
             return
 

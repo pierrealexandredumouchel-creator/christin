@@ -262,7 +262,7 @@ class GhostBrain:
         )
 
     # ------------------------------------------------------------------
-    def build_prompt(self, bot_name, nick, target, message):
+    def build_prompt(self, bot_name, nick, target, message, knowledge=None):
         text = self.clean(message)
         context = self.recent_lines(target, skip_last_from=nick, skip_text=self.clean(message, 300))
         history = "\n".join(f"{n}: {t}" for n, t in context) or "(rien de récent)"
@@ -276,8 +276,9 @@ class GhostBrain:
             f"Discussion récente dans {where}, du plus ancien au plus récent "
             "(contexte seulement : ne réponds pas à ces lignes-là) :\n"
             f"{history}\n\n"
-            + qui_est_qui([nick] + [n for n, _ in context]) +
-            f"Message de {nick} auquel tu réponds maintenant (c'est LUI ta question) :\n"
+            + qui_est_qui([nick] + [n for n, _ in context])
+            + (f"{knowledge}\n(Si le message ne porte pas sur ces règlements, ignore-les.)\n\n" if knowledge else "")
+            + f"Message de {nick} auquel tu réponds maintenant (c'est LUI ta question) :\n"
             f"{nick}: {text}\n\n"
             f"Les lignes de « {bot_name} » sont tes propres réponses précédentes.\n"
             f"Tu parles à {nick}. Ne mélange pas qui a dit quoi. Quand {nick} dit « je » "
@@ -336,7 +337,7 @@ class GhostBrain:
 
     attente_suite = 8
 
-    async def ask(self, bot_name, nick, target, message, bot_nick=None):
+    async def ask(self, bot_name, nick, target, message, bot_nick=None, knowledge=None):
         if self.is_bot(nick):
             return None
 
@@ -366,7 +367,7 @@ class GhostBrain:
         self._waiting[key] = self._waiting.get(key, 0) + 1
         try:
             async with lock:
-                prompt = self.build_prompt(normalized, nick, target, message)
+                prompt = self.build_prompt(normalized, nick, target, message, knowledge=knowledge)
                 persona = load_persona(normalized)
                 reply = await asyncio.to_thread(ollama_client.ask, prompt, persona)
         finally:

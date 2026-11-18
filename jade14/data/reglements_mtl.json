@@ -1,0 +1,234 @@
+{
+  "_lu_le": "2026-11-18",
+  "_note": "Résumés faits à partir des pages officielles de montreal.ca, lues le 2026-11-18. Information générale seulement : les règles changent et plusieurs varient par arrondissement. Pour mettre à jour une fiche, relis sa page « source » et corrige « resume » et « details ».",
+  "fiches": [
+    {
+      "id": "animaux",
+      "sujet": "Animaux : combien et lesquels",
+      "mots": ["animal", "animaux", "combien de chats", "combien de chiens", "nombre d'animaux", "lapin", "furet", "reptile", "serpent", "oiseau", "herisson", "poule", "poules", "animal exotique"],
+      "resume": "Max 8 animaux par logement, dont au plus 3 chiens et au plus 4 chats et chiens ensemble (les poissons comptent pas). Pas de chiens ou chats hybrides; rongeurs, lapins et furets de moins de 1,5 kg OK; pas de galliformes (poules) ni de serpents venimeux ou de plus de 3 m.",
+      "details": [
+        "Familles d'accueil d'un refuge avec permis du MAPAQ : jusqu'à 8 chats.",
+        "Hérissons nés en captivité permis, sauf le genre Erinaceus.",
+        "Oiseaux nés en captivité permis, sauf galliformes, ansériformes et struthioniformes.",
+        "Reptiles nés en captivité permis, sauf lézards venimeux ou de plus de 2 m, serpents venimeux ou de plus de 3 m, et crocodiliens."
+      ],
+      "reglement": "Règlement sur l'encadrement des animaux domestiques",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/sujets/animaux-domestiques-autorises"
+    },
+    {
+      "id": "chiens",
+      "sujet": "Chiens : permis, laisse, parcs",
+      "mots": ["chien", "chiens", "laisse", "medaille", "permis de chien", "licence", "parc a chiens", "harnais", "licou", "promeneur", "crotte", "excrements", "pitbull", "muselière", "museliere"],
+      "resume": "Permis annuel pour chaque chien, médaille portée en tout temps. Stérilisé et micropucé après 6 mois. Laisse de 1,85 m max en public, harnais ou licou dès 20 kg. Liberté seulement dans les parcs à chiens (65+, max 2 chiens à la fois). Promeneur de plus de 3 chiens : permis.",
+      "details": [
+        "Colliers étrangleurs, à pointes, électriques ou martingale interdits.",
+        "Interdit d'attacher l'animal à un arbre ou à du mobilier urbain; on ramasse les excréments.",
+        "Sur un terrain privé hors du logement, le chien est attaché, sauf dans une cour clôturée où il est autorisé.",
+        "Le règlement provincial s'applique aussi depuis le 3 mars 2020."
+      ],
+      "reglement": "Règlement sur l'encadrement des animaux domestiques",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/sujets/chiens"
+    },
+    {
+      "id": "chats",
+      "sujet": "Chats : permis et obligations",
+      "mots": ["chat", "chats", "minou", "permis de chat", "sterilisation", "sterilise", "micropuce", "micropuçage", "micropucage"],
+      "resume": "Permis annuel pour chaque chat. Stérilisé et micropucé. La médaille doit être portée, sauf si le chat est micropucé. Max 4 chats et chiens ensemble par logement.",
+      "details": [
+        "Interdit d'attacher l'animal à un arbre ou à du mobilier urbain.",
+        "Colliers qui causent de la douleur interdits."
+      ],
+      "reglement": "Règlement sur l'encadrement des animaux domestiques",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/articles/proprietaires-danimaux-domestiques-vos-responsabilites-67584"
+    },
+    {
+      "id": "bruit",
+      "sujet": "Bruit, pétards et feux d'artifice",
+      "mots": ["bruit", "bruyant", "voisin", "voisins", "party", "musique", "tapage", "petard", "petards", "feux d'artifice", "feu d'artifice", "pyrotechnie", "thermopompe", "souffleur", "silence", "heures de bruit", "avion", "train"],
+      "resume": "Le bruit, c'est chaque arrondissement qui a son règlement : les heures changent d'un quartier à l'autre. Pétards et pyrotechnie : interdits partout et en tout temps, sauf feux d'artifice autorisés par le conseil d'arrondissement. Plainte : 311.",
+      "details": [
+        "Règles aussi sur les rénovations, l'entretien paysager, les véhicules lourds et les thermopompes (détails selon l'arrondissement).",
+        "Bruit d'avion : Aéroports de Montréal 514 633-3351, Transport Canada 1 800 305-2059. Train : CN 1 888 888-5909, CP 1 800 766-7912."
+      ],
+      "reglement": "Règlement sur le bruit (un par arrondissement)",
+      "portee": "Varie par arrondissement",
+      "source": "https://montreal.ca/sujets/bruit"
+    },
+    {
+      "id": "deneigement-stationnement",
+      "sujet": "Stationner pendant le déneigement",
+      "mots": ["deneigement", "remorquage", "remorque", "remorqué", "panneau orange", "panneaux orange", "pancarte", "operation de neige", "chargement de la neige", "tow", "stationner l'hiver", "stationnement hiver", "info-neige"],
+      "resume": "Panneaux de jour : interdit de 7 h à 19 h, posés la veille avant 20 h. Panneaux de nuit : interdit de 19 h à 7 h, posés avant 15 h le jour même. Sinon remorquage et amende. Gare-toi à 30 cm du trottoir, rétroviseurs rabattus.",
+      "details": [
+        "La signalisation temporaire a priorité sur les panneaux permanents.",
+        "Anjou : panneaux 8 h avant l'interdiction. Saint-Laurent : parfois 4 h avant le remorquage.",
+        "Pierrefonds-Roxboro : interdit tous les jours de 1 h à 7 h du 1er novembre au 1er avril.",
+        "LaSalle et Verdun : signalisation permanente, appelle le numéro sur les panneaux.",
+        "Stationnements gratuits la nuit pendant le chargement, avec l'Agence de mobilité durable."
+      ],
+      "reglement": "Signalisation de déneigement",
+      "portee": "Toute la ville, exceptions par arrondissement",
+      "source": "https://montreal.ca/sujets/signalisation-pour-les-operations-de-deneigement"
+    },
+    {
+      "id": "rues-etroites",
+      "sujet": "Rues étroites en hiver",
+      "mots": ["rue etroite", "rues etroites", "vignette rue etroite", "15 cm"],
+      "resume": "Sur les rues étroites, si on prévoit 15 cm de neige ou plus : interdit de stationner du côté droit, et le côté gauche est réservé aux détenteurs de la vignette rue étroite de 19 h à 9 h. Cette vignette est pour l'hiver seulement.",
+      "details": [],
+      "reglement": "Déneigement des trottoirs et des rues",
+      "portee": "Rues étroites",
+      "source": "https://montreal.ca/sujets/deneigement-des-trottoirs-et-des-rues"
+    },
+    {
+      "id": "neige-dans-la-rue",
+      "sujet": "Pousser sa neige dans la rue",
+      "mots": ["pousser la neige", "neige dans la rue", "souffler la neige", "souffleuse", "deneigeur", "contrat de deneigement", "deneiger mon entree", "neige sur le trottoir", "pelleter"],
+      "resume": "Dans la plupart des arrondissements, c'est interdit de pousser ta neige dans la rue ou sur le trottoir : tu l'entasses sur ton terrain. Certains arrondissements donnent un permis payant (ex. 7,40 $/m² pour 8 logements ou moins). Déneige ton entrée et l'accès au stationnement.",
+      "details": [
+        "Tarif aussi de 11,60 $/m² pour 9 logements ou plus et le commercial; 8,92 $ pour le commercial dans Mercier–Hochelaga-Maisonneuve.",
+        "Avec permis : pas à moins de 5 m d'une intersection, 1,5 m d'une borne-fontaine, 1 m d'un puisard.",
+        "Demandes de permis acceptées à partir du 2 novembre 2026, selon l'arrondissement."
+      ],
+      "reglement": "Règlements d'arrondissement (ex. RCA20-27001)",
+      "portee": "Varie par arrondissement",
+      "source": "https://montreal.ca/demarches/demander-lautorisation-de-deposer-de-la-neige-dans-la-rue"
+    },
+    {
+      "id": "deneigement-trottoirs",
+      "sujet": "Quand la Ville déneige",
+      "mots": ["quand deneige", "trottoirs", "deblayage", "epandage", "ruelle", "ruelles", "priorite de deneigement", "chargement"],
+      "resume": "La Ville déblaie les trottoirs à partir de 2,5 cm de neige et lance le chargement à partir de 10 à 15 cm. Les rues ont trois niveaux de priorité.",
+      "details": [],
+      "reglement": "Déneigement des trottoirs et des rues",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/sujets/deneigement-des-trottoirs-et-des-rues"
+    },
+    {
+      "id": "chauffage-bois",
+      "sujet": "Foyers, poêles à bois et feux extérieurs",
+      "mots": ["foyer", "poele", "poele a bois", "bois", "chauffage au bois", "combustible", "smog", "feu exterieur", "feu de camp", "feu de foyer", "brasero", "buche", "certifie epa"],
+      "resume": "Un poêle ou foyer au bois doit émettre moins de 2,5 g de particules à l'heure (certifié EPA ou CSA/B415.1-10). Les jours de smog, aucun appareil au bois, même certifié, sauf panne d'électricité de plus de 3 h. Les feux extérieurs sont interdits sur l'île, sauf autorisation du SIM.",
+      "details": [
+        "Les bûches écologiques ou les filtres ne rendent pas un appareil conforme.",
+        "Il faut déclarer son appareil dans les 120 jours (4 mois), même un vieux qui ne sert plus.",
+        "Certains arrondissements exigent un permis pour installer, remplacer ou enlever un appareil."
+      ],
+      "reglement": "Règlement concernant les appareils et les foyers permettant l'utilisation d'un combustible solide",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/sujets/poeles-et-foyers-combustible-solide"
+    },
+    {
+      "id": "plastique",
+      "sujet": "Plastique à usage unique",
+      "mots": ["plastique", "paille", "pailles", "ustensiles", "styromousse", "polystyrene", "usage unique", "verre en plastique", "contenant", "take out", "pour emporter"],
+      "resume": "Restos et commerces alimentaires : interdit de donner tasses, verres, pailles, bâtonnets et ustensiles en plastique (nos 1 à 7) pour manger sur place. Pour emporter ou livrer : pas d'assiettes, contenants, couvercles ou ustensiles en polystyrène (6) ou en plastique compostable (7).",
+      "details": [
+        "Exceptions : banques alimentaires sans but lucratif, livraison seulement sans public sur place, produits préemballés ailleurs, carton enduit de plastique, barquettes pour viande et poisson crus."
+      ],
+      "reglement": "Règlement interdisant la distribution de certains articles à usage unique",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/articles/plastiques-usage-unique-ce-que-vous-devez-savoir-sur-la-reglementation-20549"
+    },
+    {
+      "id": "sacs",
+      "sujet": "Sacs d'emplettes en plastique",
+      "mots": ["sac", "sacs", "sac de plastique", "sacs de plastique", "sac d'epicerie", "sac reutilisable"],
+      "resume": "Les sacs d'emplettes en plastique sont interdits dans tous les commerces et restos de la ville, peu importe l'épaisseur, même dégradables. OK : sacs pour les fruits et légumes jusqu'à la caisse, sacs réutilisables et sacs de papier recyclable.",
+      "details": [],
+      "reglement": "Règlement interdisant la distribution de certains sacs d'emplettes de plastique",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/articles/sacs-de-plastique-ce-que-vous-devez-savoir-sur-la-reglementation-20575"
+    },
+    {
+      "id": "airbnb",
+      "sujet": "Location à court terme (Airbnb)",
+      "mots": ["airbnb", "location court terme", "courte duree", "court terme", "residence de tourisme", "louer mon appart", "louer mon logement"],
+      "resume": "Louer sa résidence principale à court terme : permis seulement du 10 juin au 10 septembre. À l'année seulement là où une résidence de tourisme commerciale est déjà autorisée. Constat de 1 000 $, plus 2 000 $ par jour de récidive.",
+      "details": [
+        "Annonce de la Ville du 30 janvier 2025 (alors un projet de règlement) : vérifie la version en vigueur.",
+        "Il faut aussi l'enregistrement provincial (numéro affiché dans l'annonce)."
+      ],
+      "reglement": "Encadrement de la location à court terme (annonce du 30 janvier 2025)",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/communiques-de-presse/la-ville-de-montreal-encadre-plus-severement-les-locations-de-logements-court-terme-afin-de-liberer"
+    },
+    {
+      "id": "abri-tempo",
+      "sujet": "Abri d'auto temporaire (Tempo)",
+      "mots": ["abri", "tempo", "abri tempo", "abri d'auto", "abri temporaire", "garage temporaire"],
+      "resume": "Pas de permis dans la plupart des arrondissements. En général du 15 octobre au 15 avril, 3 m de haut et 6,5 m de large max, un seul par terrain, à 0,75 m du trottoir et 1,5 m d'une borne-fontaine. Hors saison, tout se démonte.",
+      "details": [
+        "Les dates et dimensions changent selon l'arrondissement (ex. Lachine : 15 novembre au 15 avril dans certains secteurs; RDP-PAT : 4 m de haut, 2 abris max).",
+        "Seulement pour stationner : pas de chauffage ni d'entreposage. Interdit dans les secteurs patrimoniaux."
+      ],
+      "reglement": "Règlement d'urbanisme de l'arrondissement",
+      "portee": "Varie par arrondissement",
+      "source": "https://montreal.ca/demarches/installer-un-abri-temporaire-pour-automobile"
+    },
+    {
+      "id": "pesticides",
+      "sujet": "Pesticides",
+      "mots": ["pesticide", "pesticides", "herbicide", "glyphosate", "roundup", "insecticide", "pissenlit", "pelouse", "gazon", "mauvaises herbes", "fongicide"],
+      "resume": "Depuis le 1er janvier 2022, 33 molécules sont interdites à Montréal, dont le glyphosate (Roundup), le 2,4-D et le mécoprop. Les citoyens ne peuvent pas les utiliser et les magasins ne peuvent pas leur en vendre. Applicateur commercial : permis obligatoire.",
+      "details": [
+        "6 fongicides, 11 herbicides, 10 insecticides et 6 rodenticides.",
+        "Depuis 2025, les 8 golfs montréalais y sont soumis, avec quelques exceptions saisonnières."
+      ],
+      "reglement": "Règlement sur la vente et l'utilisation des pesticides (21-041)",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/sujets/utilisation-des-pesticides"
+    },
+    {
+      "id": "logement",
+      "sujet": "Chauffage et salubrité des logements",
+      "mots": ["chauffage", "froid", "temperature", "proprio", "proprietaire", "locataire", "logement", "moisissure", "punaises", "salubrite", "detecteur de fumee", "monoxyde", "inspection"],
+      "resume": "Règlement 03-096 : en saison froide, ton logement doit être chauffé à 21 °C (15 °C min. dans les pièces non habitées). Détecteurs de fumée obligatoires, détecteur de monoxyde si chauffage au gaz, au mazout ou au bois. Problème : 311, la Ville peut inspecter et donner des amendes.",
+      "details": [
+        "Par -23 °C ou moins dehors, le logement peut être un peu moins chaud.",
+        "Portes verrouillables et issues de secours dégagées en permanence."
+      ],
+      "reglement": "Règlement 03-096 sur la salubrité, l'entretien et la sécurité des logements",
+      "portee": "Toute la ville",
+      "source": "https://montreal.ca/articles/locataire-vous-avez-droit-un-logement-en-bon-etat-98493"
+    },
+    {
+      "id": "vignettes",
+      "sujet": "Vignettes de stationnement (SRRR)",
+      "mots": ["vignette", "vignettes", "srrr", "stationnement residents", "zone de stationnement", "permis de stationnement"],
+      "resume": "La vignette de stationnement réservé aux résidents (SRRR) se renouvelle chaque année; le prix et les règles dépendent de ton arrondissement. Faut la changer si tu déménages ou changes de char. Certains secteurs vendent des vignettes journalières ou mensuelles.",
+      "details": [],
+      "reglement": "Règlements d'arrondissement",
+      "portee": "Varie par arrondissement",
+      "source": "https://montreal.ca/services/vignettes-de-stationnement"
+    },
+    {
+      "id": "stationnement",
+      "sujet": "Stationnement dans la rue",
+      "mots": ["stationnement", "stationner", "parking", "parcomètre", "parcometre", "ticket", "contravention", "borne fontaine", "borne d'incendie", "duree maximale"],
+      "resume": "On suit les panneaux, et les interdictions valent aussi les jours fériés. La durée max varie selon l'arrondissement. Sur les grandes artères et rues commerciales, c'est payant (Agence de mobilité durable).",
+      "details": [],
+      "reglement": "Signalisation et règlements d'arrondissement",
+      "portee": "Varie par arrondissement",
+      "source": "https://montreal.ca/sujets/stationnement-dans-la-rue"
+    },
+    {
+      "id": "encombrants",
+      "sujet": "Encombrants, rénos et écocentres",
+      "mots": ["encombrant", "encombrants", "vieux divan", "meuble", "matelas", "frigo", "refrigerateur", "ecocentre", "ecocentres", "renovation", "reno", "debris", "pneu", "pneus", "poubelle", "vidanges", "collecte", "electronique"],
+      "resume": "Meubles, électros, bains, portes, vélos et métaux vont à la collecte des encombrants de ton arrondissement (immeubles résidentiels). Résidus de réno : petites quantités, 25 kg max par contenant. Matelas, frigos, pneus et gros volumes : un des 7 écocentres.",
+      "details": [
+        "Seul l'écocentre de Saint-Laurent recycle matelas et sommiers.",
+        "Frigos et congélateurs : GoRecycle ou écocentre. Pneus : écocentre ou garagiste (sans jantes).",
+        "Cuisinière : démonte la porte par sécurité. Amiante : lieu d'enfouissement technique."
+      ],
+      "reglement": "Collectes de l'arrondissement",
+      "portee": "Horaire par arrondissement",
+      "source": "https://montreal.ca/articles/quoi-deposer-la-collecte-des-encombrants-et-residus-de-construction-100924"
+    }
+  ]
+}

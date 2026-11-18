@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=root
-Group=root
+User=christine24
+Group=christine24
 # Le code vit dans le sous-dossier jade14/ (Christine est née d'une copie de Jade).
 WorkingDirectory=/opt/christine24/jade14
 EnvironmentFile=-/opt/christine24/jade14/.env

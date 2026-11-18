@@ -1,5 +1,6 @@
 import re
-from modules.permissions import is_master, master_nicks
+from modules.admin import add_admin, list_admins
+from modules.permissions import is_master, is_trusted
 from modules.duckhunt import reset_duck, score, shoot, spawn_duck
 
 
@@ -44,7 +45,7 @@ def handle_command(bot, line):
             flush=True,
         )
 
-        allowed = is_master(user, host)
+        allowed = is_master(user, hostmask)
 
         if not allowed:
             bot.send(chan, f"{user}: accès refusé.")
@@ -160,7 +161,7 @@ def handle_command(bot, line):
 
     if msg.startswith("!say "):
         # Réservé aux admins : sinon n'importe qui fait dire n'importe quoi à Christine.
-        if not is_master(user, hostmask):
+        if not is_trusted(user, hostmask):
             bot.send(chan, f"{user}: Tu n'es pas admin.")
             return
         bot.send(chan, msg[5:])
@@ -175,19 +176,26 @@ def handle_command(bot, line):
         score(bot, user, chan)
 
     if msg.startswith("!resetduck"):
-        if not is_master(user, hostmask):
+        if not is_trusted(user, hostmask):
             bot.send(chan, f"{user}: Tu n'es pas admin.")
             return
         reset_duck(bot, chan)
 
     if msg.startswith("!addadmin"):
         if not is_master(user, hostmask):
-            bot.send(chan, f"{user}: Tu n'es pas admin.")
+            bot.send(chan, f"{user}: Seul le maitre peut ajouter un admin.")
             return
 
-        # Les maîtres se configurent avec leur hôte dans modules/permissions.py :
-        # un pseudo seul, ajouté par IRC, se volerait trop facilement.
-        bot.send(chan, f"{user}: les maîtres s'ajoutent dans modules/permissions.py (pseudo + hôte).")
+        bits = msg.split()
+        if len(bits) != 3:
+            bot.send(chan, "Usage: !addadmin <nick> <hote>  (ex: !addadmin bob bob.users.undernet.org)")
+            return
+        entry = bits[1] + "@" + bits[2].lstrip("@").lower()
+        if add_admin(entry):
+            bot.send(chan, f"Admin ajoute: {entry}")
+        else:
+            bot.send(chan, f"{entry} est deja admin.")
+        return
 
     if msg.startswith("!admins"):
-        bot.send(chan, "Maîtres: " + (", ".join(master_nicks()) or "aucun"))
+        bot.send(chan, "Admins: " + list_admins())

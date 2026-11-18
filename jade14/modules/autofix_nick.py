@@ -16,7 +16,7 @@ def fix_config():
         except:
             # JSON cassé → on reconstruit un propre
             cfg = {
-                "server": "irc6.undernet.org",
+                "server": "dallas.tx.us.undernet.org",
                 "port": 6667,
                 "nick": "christine24",
                 "ident": "christine24",

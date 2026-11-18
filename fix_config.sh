@@ -7,7 +7,7 @@ echo "[AutoFix] Vérification du config.json..."
 # Config propre attendu
 read -r -d '' GOODCFG << 'EOF'
 {
-    "server": "irc6.undernet.org",
+    "server": "dallas.tx.us.undernet.org",
     "port": 6667,
     "nick": "christine24",
     "ident": "christine24",

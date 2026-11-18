@@ -38,11 +38,21 @@ BINDHOST = cfg.get("bindhost")
 _CHRISTINE_AI_POOL = ThreadPoolExecutor(max_workers=1, thread_name_prefix="christine-ghostbrain")
 _CHRISTINE_SEND_LOCK = threading.Lock()
 
+# === Watchdog anti-split ===
+# Après un netsplit, Undernet peut laisser le bot « connecté dans le vide » :
+# le serveur zombie envoie encore des PING, la socket reçoit donc du trafic et
+# rien ne détecte la panne. Seul un PING actif vérifié par son PONG tranche.
+WD_PING_EVERY = 60     # on sonde le serveur chaque 60 s
+WD_DEAD_AFTER = 180    # aucun PONG ni donnée depuis 180 s => lien mort
+
 
 class Jade14Bot:
     def __init__(self):
         self.sock = None
         self.reconnector = AutoReconnect(self)
+        self._wd_last_rx = time.time()
+        self._wd_last_pong = time.time()
+        threading.Thread(target=self._watchdog, name="christine-watchdog", daemon=True).start()
 
     def run(self):
         """Boucle principale : connecte, écoute, et si la connexion tombe,
@@ -66,6 +76,35 @@ class Jade14Bot:
 
     def _pong(self, line):
         self.sock.send(f"{line.replace('PING', 'PONG', 1)}\r\n".encode())
+
+    def _wd_send(self, raw):
+        with _CHRISTINE_SEND_LOCK:
+            self.sock.send((raw + "\r\n").encode())
+
+    def _watchdog(self):
+        """Sonde le serveur chaque WD_PING_EVERY s. Sans PONG ni donnée depuis
+        WD_DEAD_AFTER s, le lien est mort (split half-open) : on ferme la
+        socket et run() se reconnecte via AutoReconnect."""
+        while True:
+            time.sleep(WD_PING_EVERY)
+            s = self.sock
+            if s is None:
+                continue
+            now = time.time()
+            if now - self._wd_last_pong > WD_DEAD_AFTER and now - self._wd_last_rx > WD_DEAD_AFTER:
+                print(f"[watchdog] Lien mort (rx {now - self._wd_last_rx:.0f}s, "
+                      f"pong {now - self._wd_last_pong:.0f}s). Je coupe pour reconnecter.", flush=True)
+                for action in (lambda: s.shutdown(socket.SHUT_RDWR), s.close):
+                    try:
+                        action()
+                    except Exception:
+                        pass
+                self._wd_last_rx = self._wd_last_pong = now
+                continue
+            try:
+                self._wd_send("PING :christine-wd")
+            except Exception:
+                pass
 
     def connect(self):
         # Un socket neuf à chaque tentative
@@ -128,6 +167,8 @@ class Jade14Bot:
             self.send_raw(f"JOIN {chan}")
 
         print(f"Connecté à Undernet en tant que {NICK}.")
+        # Watchdog : compteurs remis à neuf sur cette nouvelle connexion.
+        self._wd_last_rx = self._wd_last_pong = time.time()
 
     def _wait_for_welcome(self, timeout=30):
         """Attend le message 001 (connexion établie) avant de JOIN."""
@@ -190,6 +231,8 @@ class Jade14Bot:
                 # de réponses aux commandes) et ne se reconnecte jamais.
                 raise ConnectionError("Connexion fermée par le serveur IRC.")
 
+            self._wd_last_rx = time.time()   # watchdog : le serveur nous parle
+
             # Une ligne IRC peut arriver coupée entre deux recv() : on garde
             # le morceau incomplet pour le prochain tour.
             buffer += data
@@ -206,6 +249,12 @@ class Jade14Bot:
 
                 if line.startswith("PING"):
                     self._pong(line)
+                    continue
+
+                # Watchdog : le serveur a répondu à notre sonde => lien vivant.
+                _toks = line.split()
+                if len(_toks) > 1 and _toks[1].upper() == "PONG":
+                    self._wd_last_pong = time.time()
                     continue
 
                 if " JOIN " in line:
@@ -286,6 +335,12 @@ class Jade14Bot:
         hostmask = str(hostmask).casefold()
 
         trusted = {
+            "te[u]k": (
+                "@teuk.users.undernet.org",
+            ),
+            "te[u]k`": (
+                "@teuk.users.undernet.org",
+            ),
             "alxd": (
                 "@alxd.kekistan.faith",
                 "@alerion.users.undernet.org",
@@ -310,6 +365,12 @@ class Jade14Bot:
             ),
             "jade14": (
                 "@2001:470:b2af::2",
+            ),
+            "mediabot": (
+                "@mediabot.users.undernet.org",
+            ),
+            "mediabott": (
+                "@mediabot.users.undernet.org",
             ),
         }
 

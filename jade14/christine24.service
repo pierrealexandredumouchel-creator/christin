@@ -1,0 +1,24 @@
+[Unit]
+Description=Bot IRC christine24 (Undernet #montreal, #kodi)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=christine24
+Group=christine24
+# Le code vit dans le sous-dossier jade14/ (Christine est née d'une copie de Jade).
+WorkingDirectory=/opt/christine24/jade14
+EnvironmentFile=-/opt/christine24/jade14/.env
+ExecStart=/opt/christine24/jade14/venv/bin/python3 /opt/christine24/jade14/jade14.py
+Restart=on-failure
+RestartSec=10
+
+# Petit durcissement de base (facultatif mais recommandé)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,15 +1,39 @@
-MASTER_LIST = ["alxd", "administrator", "root"]
+"""Commandes privilégiées de Christine (menu mIRC du maître).
 
-def is_master(nick):
-    return nick.lower() in [m.lower() for m in MASTER_LIST]
+Un maître est reconnu par son pseudo ET son hôte : un pseudo seul se vole
+en deux secondes sur Undernet. Pas de commande « raw » : elle permettait
+d'envoyer n'importe quoi au serveur au nom du bot.
+"""
 
-def handle_master_privmsg(send_raw, send_message, nick, target, message):
-    if not is_master(nick):
-        return
+MASTERS = {
+    "alxd": (
+        "@alxd.kekistan.faith",
+        "@alerion.users.undernet.org",
+    ),
+}
 
-    parts = message.split(" ", 1)
+
+def is_master(nick, hostmask):
+    """hostmask : préfixe IRC complet, ex. « alxd!~alxd@alxd.kekistan.faith »."""
+    allowed_hosts = MASTERS.get(str(nick).casefold())
+    if not allowed_hosts:
+        return False
+    hostmask = str(hostmask).casefold()
+    return any(host in hostmask for host in allowed_hosts)
+
+
+def _clean(text):
+    # Empêche d'injecter une deuxième commande IRC via un saut de ligne.
+    return str(text).replace("\r", "").replace("\n", "").strip()
+
+
+def handle_master_privmsg(send_raw, send_message, nick, hostmask, target, message):
+    if not is_master(nick, hostmask):
+        return False
+
+    parts = _clean(message).split(" ", 1)
     cmd = parts[0].lower()
-    arg = parts[1] if len(parts) > 1 else ""
+    arg = parts[1].strip() if len(parts) > 1 else ""
 
     if cmd == "say" and arg:
         send_message(target, arg)
@@ -20,11 +44,13 @@ def handle_master_privmsg(send_raw, send_message, nick, target, message):
     elif cmd == "ghost" and arg:
         send_message(target, f"<{nick}> {arg}")
 
-    elif cmd == "join" and arg:
-        send_raw(f"JOIN {arg}")
+    elif cmd == "join" and arg.startswith("#"):
+        send_raw(f"JOIN {arg.split()[0]}")
 
-    elif cmd == "part" and arg:
-        send_raw(f"PART {arg}")
+    elif cmd == "part" and arg.startswith("#"):
+        send_raw(f"PART {arg.split()[0]}")
 
-    elif cmd == "raw" and arg:
-        send_raw(arg)
+    else:
+        return False
+
+    return True

@@ -15,11 +15,3 @@ Ton bot va supporter :
 !deop <nick>
 
 !topic <texte>
-
-!duckhunt → lance le jeu
-
-!shoot → tire sur le canard
-
-!score → montre ton score
-
-!resetduck → reset admin du jeu

@@ -1,7 +1,6 @@
 import re
 from modules.admin import add_admin, list_admins
 from modules.permissions import is_master, is_trusted
-from modules.duckhunt import reset_duck, score, shoot, spawn_duck
 
 
 def handle_command(bot, line):
@@ -165,21 +164,6 @@ def handle_command(bot, line):
             bot.send(chan, f"{user}: Tu n'es pas admin.")
             return
         bot.send(chan, msg[5:])
-
-    if msg.startswith("!duckhunt"):
-        spawn_duck(bot, chan)
-
-    if msg.startswith("!shoot"):
-        shoot(bot, user, chan)
-
-    if msg.startswith("!score"):
-        score(bot, user, chan)
-
-    if msg.startswith("!resetduck"):
-        if not is_trusted(user, hostmask):
-            bot.send(chan, f"{user}: Tu n'es pas admin.")
-            return
-        reset_duck(bot, chan)
 
     if msg.startswith("!addadmin"):
         if not is_master(user, hostmask):

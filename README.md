@@ -26,9 +26,8 @@ une blague plutôt qu'un kick. Elle aide aussi pour les questions techniques (Li
 | Commande | Effet |
 |---|---|
 | `christine …` / `!christine <texte>` | Lui parler |
-| `!duckhunt` · `!shoot` · `!score` | Chasse au canard |
 | `!hello` · `!ping` | Les classiques |
-| `!say` · `!addadmin` · `!admins` · `!resetduck` | Admin |
+| `!say` · `!addadmin` · `!admins` | Admin |
 
 ## Structure
 

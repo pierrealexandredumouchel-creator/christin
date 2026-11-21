@@ -16,14 +16,6 @@ Ton bot va supporter :
 
 !topic <texte>
 
-!duckhunt → lance le jeu
-
-!shoot → tire sur le canard
-
-!score → montre ton score
-
-!resetduck → reset admin du jeu
-
 🟥 1. ADMIN COMMANDES — Ghost Royale Edition
 Tu vas avoir :
 
@@ -53,6 +45,3 @@ Le bot parle dans le channel
 
 ✔ !shutdown
 Le bot se déconnecte proprement
-
-✔ !resetduck
-Reset DUCKHUNT (admin only)

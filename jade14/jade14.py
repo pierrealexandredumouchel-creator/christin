@@ -13,7 +13,6 @@ from core.brain import ghost_brain
 from modules.autoreconnect import AutoReconnect
 from modules.commands import handle_command
 from core.gardien import gardien
-from modules.duckhunt import init as duckhunt_init
 from modules.events import handle_event
 
 from modules.autofix_nick import auto_fix
@@ -377,6 +376,5 @@ class Jade14Bot:
 
 
 if __name__ == "__main__":
-    duckhunt_init()
     bot = Jade14Bot()
     bot.run()

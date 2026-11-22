@@ -249,10 +249,15 @@ class Jade14Bot:
         ):
             return
 
+        # Ticket pris tout de suite : si la même personne réécrit pendant que
+        # Christine réfléchit, seul son dernier message aura une réponse.
+        ticket = ghost_brain.take_ticket("christine24", reply_to, nick)
+
         def worker():
             try:
                 reply = asyncio.run(ghost_brain.ask(
                     bot_name="christine24", nick=nick, target=reply_to, message=text,
+                    ticket=ticket,
                 ))
                 if reply:
                     self.say_long(reply_to, f"{nick}: {reply}")

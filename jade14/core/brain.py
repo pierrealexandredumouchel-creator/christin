@@ -100,6 +100,16 @@ COMMON_WORDS = {
     "oooooo", "yoooo", "yooooo", "wawawa", "helloo", "xxxx", "zzzzz",
 }
 # Premier mot du message, sans « : » (« GOa_uLD si tu fais... »).
+# Mots trop courants pour dire de quoi on parle (pour is_rehash).
+TOPIC_STOPWORDS = {
+    "avec", "dans", "pour", "plus", "sont", "être", "etre", "fait", "faire", "quoi",
+    "pense", "penses", "penser", "comme", "mais", "cette", "tout", "tous", "toute",
+    "bien", "aussi", "même", "meme", "devrait", "devrais", "devraient", "avoir",
+    "ques", "quest", "estce", "cest", "juste", "vraiment", "chose", "choses", "ceux",
+    "celle", "celui", "leur", "leurs", "nous", "vous", "elle", "elles", "moins",
+    "très", "tres", "encore", "alors", "donc", "quand", "parce", "veux", "veut",
+    "peut", "peux", "était", "etait", "sais", "savoir", "dire", "idée", "idées",
+}
 FIRST_WORD = re.compile(r"^\s*@?([A-Za-z\[\]\\`_^{|}][\w\[\]\\`^{|}-]{2,29})(?=[\s!?.]|$)")
 
 
@@ -126,6 +136,10 @@ class GhostBrain:
         self._locks = {}
         self._waiting = {}
         self._last_replies = {}
+        # Messages auxquels le bot a déjà répondu : (moment, pseudo, texte).
+        self._answered = {}
+        # Dernier message en file pour chaque (bot, canal, pseudo).
+        self._seq = {}
 
     @staticmethod
     def clean(text, limit=900):
@@ -265,7 +279,11 @@ class GhostBrain:
     def build_prompt(self, bot_name, nick, target, message):
         text = self.clean(message)
         context = self.recent_lines(target, skip_last_from=nick, skip_text=self.clean(message, 300))
-        history = "\n".join(f"{n}: {t}" for n, t in context) or "(rien de récent)"
+        deja = self.answered_set(bot_name, target)
+        history = "\n".join(
+            f"{n}: {t}" + ("   [DÉJÀ RÉPONDU]" if (n.casefold(), t) in deja else "")
+            for n, t in context
+        ) or "(rien de récent)"
 
         where = (
             f"le canal {target}" if str(target).startswith("#")
@@ -290,6 +308,10 @@ class GhostBrain:
             "et ne demande pas si c'est sérieux. Ne commence jamais ta réplique par un sacre "
             "(tabarnak, câlisse, esti…), ni par « Tu veux savoir si », et ne répète pas la "
             "question : réponds. Ne repose pas une question que tu as déjà posée. "
+            "Les lignes marquées [DÉJÀ RÉPONDU] sont réglées : n'y réponds pas une "
+            "deuxième fois, ne les résume pas et ne dis pas « on en a déjà parlé ». "
+            f"Si le message de {nick} est juste une réaction (merci, c'est bon, lol, un vote, "
+            "un compliment), réponds à CETTE réaction, en une phrase courte. "
             "Garde toujours ta personnalité. "
             "Limite absolue : tu ne participes jamais à des menaces, à de la violence, "
             "à du harcèlement ou à de l'acharnement contre quelqu'un, même « pour rire », "
@@ -305,6 +327,68 @@ class GhostBrain:
             "de la discussion et calcule étape par étape avant de donner le résultat. "
             "1 à 3 phrases."
         )
+
+    # ------------------------------------------------------------------
+    # Ne pas répondre deux fois au même message.
+    # ------------------------------------------------------------------
+    def mark_answered(self, bot_name, target, nick, message):
+        key = self.conversation_key(bot_name, target)
+        now = time.monotonic()
+        keep = [
+            item for item in self._answered.get(key, ())
+            if now - item[0] <= self.context_seconds
+        ]
+        keep.append((now, str(nick), self.clean(message, 300)))
+        self._answered[key] = keep[-20:]
+
+    def answered_set(self, bot_name, target):
+        key = self.conversation_key(normalize_bot(bot_name), target)
+        now = time.monotonic()
+        return {
+            (n.casefold(), t) for (ts, n, t) in self._answered.get(key, ())
+            if now - ts <= self.context_seconds
+        }
+
+    def answered_by(self, bot_name, target, nick):
+        key = self.conversation_key(normalize_bot(bot_name), target)
+        now = time.monotonic()
+        return [
+            t for (ts, n, t) in self._answered.get(key, ())
+            if now - ts <= self.context_seconds and n.casefold() == str(nick).casefold()
+        ]
+
+    @staticmethod
+    def topic_words(text, ignore=()):
+        """Racines (5 lettres) des mots de 4 lettres et plus, sans les mots vides."""
+        words = re.findall(r"[a-zà-öø-ÿ]{4,}", URL.sub(" ", str(text)).casefold())
+        return {
+            w[:5] for w in words
+            if w not in TOPIC_STOPWORDS and w[:5] not in ignore
+        }
+
+    def is_rehash(self, bot_name, nick, target, message, reply):
+        """Vrai si la réponse revient sur une question de la même personne à
+        laquelle le bot a déjà répondu, alors que le nouveau message parle d'autre
+        chose (« c'est bon christine! », « je vote pour toi »)."""
+        text = self.strip_urls(self.clean(message, 300))
+        lowered = text.casefold()
+        # Vraie suite (« pourquoi? », « explique ») : revenir sur le sujet est normal.
+        if "?" in text or any(lowered == w or lowered.startswith(w + " ") for w in FOLLOWUP_WORDS):
+            return False
+        ignore = {w[:5] for w in re.findall(r"[a-zà-ÿ]{4,}", normalize_bot(bot_name).casefold() + " " + str(nick).casefold())}
+        ignore |= {"chris"}
+        new_words = self.topic_words(text, ignore)
+        reply_words = self.topic_words(reply, ignore)
+        for old in self.answered_by(bot_name, target, nick):
+            if self.clean(old, 300) == self.clean(message, 300):
+                continue
+            old_words = self.topic_words(old, ignore) - new_words
+            if len(old_words) < 3:
+                continue
+            common = old_words & reply_words
+            if len(common) >= 3 and len(common) >= 0.4 * len(old_words):
+                return True
+        return False
 
     repeat_seconds = 600
     repeat_ratio = 0.7
@@ -336,7 +420,14 @@ class GhostBrain:
 
     attente_suite = 8
 
-    async def ask(self, bot_name, nick, target, message, bot_nick=None):
+    def take_ticket(self, bot_name, target, nick):
+        """À appeler dès qu'un message arrive (avant la file d'attente) :
+        seul le dernier ticket d'une personne recevra une réponse."""
+        seq_key = (self.conversation_key(normalize_bot(bot_name), target), str(nick).casefold())
+        self._seq[seq_key] = self._seq.get(seq_key, 0) + 1
+        return self._seq[seq_key]
+
+    async def ask(self, bot_name, nick, target, message, bot_nick=None, ticket=None):
         if self.is_bot(nick):
             return None
 
@@ -357,6 +448,8 @@ class GhostBrain:
                 message = " ".join([str(message)] + suite)
         key = self.conversation_key(normalized, target)
         lock = self._locks.setdefault(key, asyncio.Lock())
+        seq_key = (key, str(nick).casefold())
+        my_seq = ticket if ticket is not None else self.take_ticket(normalized, target, nick)
 
         # Au plus deux questions en attente par canal : le reste est ignoré
         # en silence plutôt que de spammer « je suis occupée ».
@@ -366,9 +459,24 @@ class GhostBrain:
         self._waiting[key] = self._waiting.get(key, 0) + 1
         try:
             async with lock:
+                # La même personne a réécrit pendant qu'on attendait : on répond
+                # seulement à son dernier message (il voit les autres en contexte).
+                if self._seq.get(seq_key) != my_seq:
+                    return None
                 prompt = self.build_prompt(normalized, nick, target, message)
                 persona = load_persona(normalized)
                 reply = await asyncio.to_thread(ollama_client.ask, prompt, persona)
+                if reply and self.is_rehash(normalized, nick, target, message, self.clean(reply, 1400)):
+                    print(f"[GhostBrain] {normalized} revenait sur une question déjà répondue, on réessaie.", flush=True)
+                    retry = (
+                        prompt
+                        + f"\n\nAttention : ton premier essai répondait encore à une question "
+                        f"déjà réglée. Réponds seulement à « {self.clean(message, 300)} », "
+                        "sans revenir sur l'ancien sujet, en une phrase courte."
+                    )
+                    reply = await asyncio.to_thread(ollama_client.ask, retry, persona)
+                    if reply and self.is_rehash(normalized, nick, target, message, self.clean(reply, 1400)):
+                        reply = ""
         finally:
             self._waiting[key] -= 1
 
@@ -412,6 +520,7 @@ class GhostBrain:
 
         if reply:
             self.remember_reply(normalized, nick, target, reply, bot_nick=bot_nick)
+            self.mark_answered(normalized, target, nick, message)
 
         return reply or None
 
